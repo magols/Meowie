@@ -18,10 +18,6 @@ namespace Meowie.BlazorServer
 
             builder.Services.AddScoped<ILocationService, GeoService>();
 
-            builder.Services.AddScoped<IMenuProvider, MeowieWebMenu>();
-
-
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

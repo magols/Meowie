@@ -2,7 +2,7 @@
 
 namespace Meowie.Lib.Web.Components
 {
-    public partial class MeowieWebMenu : IMenuProvider
+    public partial class MeowieWebMenu
     {
 
         private bool collapseNavMenu = true;
