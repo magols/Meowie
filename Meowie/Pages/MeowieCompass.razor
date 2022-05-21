@@ -1,16 +1,14 @@
-﻿@page "/accel"
+﻿@page "/compass"
 @using Microsoft.Maui.Devices.Sensors
 @using Meowie.Lib.Services
 @using Meowie.Services
 @inject StateContainerService stateService
 @*just life cycle issues, lol*@
-@inject AccelService AccelService 
+@inject CompassService CompassService
 @implements IDisposable
 
-<h3>Accel monitoring: @Accelerometer.IsMonitoring</h3>
-Z @stateService.Acceleration.Z<br/>
-X @stateService.Acceleration.X<br/>
-Y @stateService.Acceleration.Y<br/>
+<h3>Compass monitoring: @Compass.IsMonitoring</h3>
+@stateService.CompassHeadingMagneticNorth 
 
 @code {
 

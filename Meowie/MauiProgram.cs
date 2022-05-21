@@ -26,6 +26,11 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<ILocationService>(new LocationServiceApp());
 
+        builder.Services.AddSingleton<StateContainerService>();
+        builder.Services.AddSingleton<AccelService>();
+        builder.Services.AddSingleton<CompassService>();
+
+
         return builder.Build();
 	}
 }

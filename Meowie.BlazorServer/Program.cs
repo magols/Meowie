@@ -17,6 +17,7 @@ namespace Meowie.BlazorServer
             builder.Services.AddSingleton<WeatherForecastService>();
 
             builder.Services.AddScoped<ILocationService, GeoService>();
+            builder.Services.AddSingleton<StateContainerService>();
 
             var app = builder.Build();
 

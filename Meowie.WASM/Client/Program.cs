@@ -18,6 +18,7 @@ namespace Meowie.WASM.Client
 
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddScoped<ILocationService, GeoService>();
+            builder.Services.AddSingleton<StateContainerService>();
 
             await builder.Build().RunAsync();
         }
