@@ -4,12 +4,27 @@
 @inject NotificationService NotificationService
 
 
-<h3>Lng: @location?.Longitude</h3>
-<h3>Lat: @location?.Latitude</h3>
+<h3>Do you need directions to the cat cafe?</h3>
+<div>You are at Lat: @location?.Latitude Lng: @location?.Longitude</div>
+<div>Kitties are at Lat: 59.34475370 Lng: 18.05444356 in the center of the map</div>
 
+ 
+<RadzenGoogleMap style="height: 400px" Zoom=@zoom Center=@(new GoogleMapPosition() { Lat = 59.34475370451146, Lng = 18.054443560685428 })>
+    <Markers>
+        <RadzenGoogleMapMarker Title="Java Whiskers" Label="Kitties" Position=@(new GoogleMapPosition() { Lat = 59.34475370451146, Lng = 18.054443560685428 }) />
+        @if (location != null)
+        {
+            <RadzenGoogleMapMarker Title="You " Label="You" Position=@(new GoogleMapPosition() { Lat = (double)location.Latitude, Lng = (double)location.Longitude }) />
+
+        }
+
+    </Markers>
+</RadzenGoogleMap>
+
+<div><i>Ok, it's only dev.. so maps are working-ish</i></div>
 @code {
-    private Location location;
-
+    private Location? location;
+    int zoom = 12;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
