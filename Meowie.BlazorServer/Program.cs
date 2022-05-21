@@ -1,7 +1,6 @@
 using Meowie.Data;
 using Meowie.Lib.Services;
 using Meowie.Lib.Web;
-using Meowie.Lib.Web.Components;
 
 namespace Meowie.BlazorServer
 {
@@ -18,6 +17,17 @@ namespace Meowie.BlazorServer
 
             builder.Services.AddScoped<ILocationService, GeoService>();
             builder.Services.AddSingleton<StateContainerService>();
+
+
+            builder.Services.AddHttpClient();
+            builder.Services.AddScoped<CatFactsClient>(sp =>
+                new CatFactsClient(
+                    new HttpClient
+                    {
+                        BaseAddress = new Uri(@"https://catfact.ninja")
+                    }));
+
+
 
             var app = builder.Build();
 

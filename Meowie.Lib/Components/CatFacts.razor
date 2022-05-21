@@ -1,0 +1,22 @@
+﻿@using Meowie.Lib.Services
+@using Meowie.Lib.Data
+
+@if (Fact != null)
+{
+    <h4>Fact:</h4>
+    @Fact?.Fact
+}
+
+
+@code {
+    [Inject] 
+    CatFactsClient Client { get; set; }
+
+    public CatFact? Fact;
+
+    protected override  async Task OnInitializedAsync()
+    {
+        Fact = await Client.GetFactAsync();
+    }
+
+}

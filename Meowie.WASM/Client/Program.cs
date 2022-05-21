@@ -20,6 +20,13 @@ namespace Meowie.WASM.Client
             builder.Services.AddScoped<ILocationService, GeoService>();
             builder.Services.AddSingleton<StateContainerService>();
 
+            builder.Services.AddScoped<CatFactsClient>(sp =>
+                new CatFactsClient(
+                    new HttpClient
+                {
+                    BaseAddress = new Uri(@"https://catfact.ninja")
+                }));
+
             await builder.Build().RunAsync();
         }
     }

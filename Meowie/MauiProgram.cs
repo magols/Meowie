@@ -30,6 +30,12 @@ public static class MauiProgram
         builder.Services.AddSingleton<AccelService>();
         builder.Services.AddSingleton<CompassService>();
 
+        builder.Services.AddScoped<CatFactsClient>(sp =>
+            new CatFactsClient(
+                new HttpClient
+                {
+                    BaseAddress = new Uri(@"https://catfact.ninja")
+                }));
 
         return builder.Build();
 	}
