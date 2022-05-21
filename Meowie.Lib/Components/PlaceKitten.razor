@@ -1,0 +1,18 @@
+﻿ 
+    <img src="@Url" width="@(Width)px" height="@(Height)px"/>
+ 
+@code {
+
+    [Parameter]
+    public int Width { get; set; } = 100;
+
+    [Parameter]
+    public int Height { get; set; } = 100;
+
+    public string Url
+    {
+        get { return $"https:////placekitten.com//{Width}//{Height}"; }
+
+    }
+
+}

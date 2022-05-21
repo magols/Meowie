@@ -1,0 +1,17 @@
+﻿@page "/location"
+@using Meowie.Lib.Services
+@inject ILocationService LocationService
+
+<h3>Lng: @location?.Longitude</h3>
+<h3>Lat: @location?.Latitude</h3>
+
+@code {
+    private Location location;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        location = await LocationService.GetLocationAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+}

@@ -1,0 +1,28 @@
+﻿@page "/accel"
+@using Microsoft.Maui.Devices.Sensors
+@using System.Numerics
+
+<h3>Accel monitoring: @Accelerometer.IsMonitoring</h3>
+Z@_acc.Z<br/>
+X@_acc.X<br/>
+Y@_acc.Y<br/>
+
+
+@code {
+    private Vector3 _acc = Vector3.Zero;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Accelerometer.IsSupported)
+        {
+            Accelerometer.ReadingChanged += OnReading;
+            Accelerometer.Start(SensorSpeed.Default);
+        }
+    }
+
+    private void OnReading(object sender, AccelerometerChangedEventArgs e)
+    {
+        _acc = e.Reading.Acceleration;
+        StateHasChanged();
+    }
+}
