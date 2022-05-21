@@ -1,6 +1,7 @@
 using Meowie.Data;
 using Meowie.Lib.Services;
 using Meowie.Lib.Web;
+using Meowie.Lib.Web.Components;
 
 namespace Meowie.BlazorServer
 {
@@ -16,6 +17,9 @@ namespace Meowie.BlazorServer
             builder.Services.AddSingleton<WeatherForecastService>();
 
             builder.Services.AddScoped<ILocationService, GeoService>();
+
+            builder.Services.AddScoped<IMenuProvider, MeowieWebMenu>();
+
 
 
             var app = builder.Build();

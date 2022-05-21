@@ -1,12 +1,12 @@
-﻿@using Meowie.Lib.Components
-<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="new []{typeof(MeowieLayout).Assembly}">
+﻿@using Meowie.Lib.Web.Components
+<Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="new []{typeof(Kittens).Assembly}">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MeowieLayout)" />
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MeowieWebLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>
         <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MeowieLayout)">
+        <LayoutView Layout="@typeof(MeowieWebLayout)">
             <p role="alert">Sorry, there's nothing at this address.</p>
         </LayoutView>
     </NotFound>

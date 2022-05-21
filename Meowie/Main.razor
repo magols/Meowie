@@ -1,5 +1,6 @@
-﻿@using Meowie.Lib.Components
-<Router AppAssembly="@typeof(Main).Assembly" AdditionalAssemblies="new []{typeof(MeowieLayout).Assembly}">
+﻿@using Meowie.Components
+@using Meowie.Lib.Pages
+<Router AppAssembly="@typeof(Main).Assembly" AdditionalAssemblies="new []{typeof(Kittens).Assembly}">
 	<Found Context="routeData">
 		<RouteView RouteData="@routeData" DefaultLayout="@typeof(MeowieLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
