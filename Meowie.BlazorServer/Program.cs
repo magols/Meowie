@@ -1,4 +1,3 @@
-using Meowie.Data;
 using Meowie.Lib.Services;
 using Meowie.Lib.Web;
 using Radzen;
@@ -14,7 +13,6 @@ namespace Meowie.BlazorServer
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<WeatherForecastService>();
 
             builder.Services.AddScoped<ILocationService, GeoService>();
             builder.Services.AddSingleton<StateContainerService>();

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components.WebView.Maui;
-using Meowie.Data;
 using Meowie.Lib.Services;
 using Meowie.Services;
 using Radzen;
@@ -23,7 +22,6 @@ public static class MauiProgram
 		builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
 
-		builder.Services.AddSingleton<WeatherForecastService>();
 
         builder.Services.AddSingleton<ILocationService>(new LocationServiceApp());
 
