@@ -1,6 +1,7 @@
 using Meowie.Data;
 using Meowie.Lib.Services;
 using Meowie.Lib.Web;
+using Radzen;
 
 namespace Meowie.BlazorServer
 {
@@ -27,7 +28,8 @@ namespace Meowie.BlazorServer
                         BaseAddress = new Uri(@"https://catfact.ninja")
                     }));
 
-
+            builder.Services.AddScoped<DialogService>();
+            builder.Services.AddScoped<NotificationService>();
 
             var app = builder.Build();
 

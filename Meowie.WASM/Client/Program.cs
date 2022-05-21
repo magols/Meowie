@@ -3,6 +3,7 @@ using Meowie.Lib.Services;
 using Meowie.Lib.Web;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Radzen;
 
 namespace Meowie.WASM.Client
 {
@@ -26,6 +27,9 @@ namespace Meowie.WASM.Client
                 {
                     BaseAddress = new Uri(@"https://catfact.ninja")
                 }));
+
+            builder.Services.AddScoped<DialogService>();
+            builder.Services.AddScoped<NotificationService>();
 
             await builder.Build().RunAsync();
         }

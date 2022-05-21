@@ -2,6 +2,7 @@
 using Meowie.Data;
 using Meowie.Lib.Services;
 using Meowie.Services;
+using Radzen;
 
 namespace Meowie;
 
@@ -36,6 +37,9 @@ public static class MauiProgram
                 {
                     BaseAddress = new Uri(@"https://catfact.ninja")
                 }));
+
+        builder.Services.AddScoped<DialogService>();
+        builder.Services.AddScoped<NotificationService>();
 
         return builder.Build();
 	}

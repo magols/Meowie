@@ -50,6 +50,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Radzen.Blazor" Version="3.18.10" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\Meowie.Lib\Meowie.Lib.csproj" />
 	</ItemGroup>
 

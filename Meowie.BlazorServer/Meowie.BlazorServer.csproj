@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Radzen.Blazor" Version="3.18.10" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Meowie.Lib.Web\Meowie.Lib.Web.csproj" />
     <ProjectReference Include="..\Meowie.Lib\Meowie.Lib.csproj" />
   </ItemGroup>

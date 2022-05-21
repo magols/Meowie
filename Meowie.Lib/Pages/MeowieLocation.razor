@@ -1,6 +1,8 @@
 ﻿@page "/location"
 @using Meowie.Lib.Services
 @inject ILocationService LocationService
+@inject NotificationService NotificationService
+
 
 <h3>Lng: @location?.Longitude</h3>
 <h3>Lat: @location?.Latitude</h3>
@@ -11,7 +13,13 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        location = await LocationService.GetLocationAsync();
-        await InvokeAsync(StateHasChanged);
+        if (firstRender)
+        {
+            location = await LocationService.GetLocationAsync();
+            await InvokeAsync(StateHasChanged);
+
+            NotificationService.Notify(summary:"Updated Location");
+            
+        }
     }
 }
