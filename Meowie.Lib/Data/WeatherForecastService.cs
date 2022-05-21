@@ -1,3 +1,5 @@
+using Meowie.Lib.Data;
+
 namespace Meowie.Data;
 
 public class WeatherForecastService

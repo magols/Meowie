@@ -1,4 +1,4 @@
-using Meowie.BlazorServer.Data;
+using Meowie.Data;
 using Meowie.Lib.Services;
 using Meowie.Lib.Web;
 

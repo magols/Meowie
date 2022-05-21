@@ -1,4 +1,4 @@
-namespace Meowie.Data;
+namespace Meowie.Lib.Data;
 
 public class WeatherForecast
 {
