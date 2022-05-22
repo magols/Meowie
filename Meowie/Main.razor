@@ -2,7 +2,7 @@
 @using Meowie.Lib.Pages
 <RadzenDialog/>
 <RadzenNotification/>
-<Router AppAssembly="@typeof(Main).Assembly" AdditionalAssemblies="new []{typeof(Kittens).Assembly}">
+<Router AppAssembly="@typeof(Main).Assembly" AdditionalAssemblies="new []{typeof(CatFacts).Assembly}">
 	<Found Context="routeData">
 		<RouteView RouteData="@routeData" DefaultLayout="@typeof(MeowieLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />

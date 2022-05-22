@@ -9,10 +9,24 @@
     [Parameter]
     public int Height { get; set; } = 100;
 
+    [Parameter]
+    public bool Random { get; set; }
+
     public string Url
     {
         get { return $"https://placekitten.com/{Width}/{Height}"; }
 
+    }
+
+    protected override void OnParametersSet()
+    {
+
+        if (Random)
+        {
+            
+            Width = System.Random.Shared.Next(80,  100);
+            Height = System.Random.Shared.Next(80,  100);
+        }
     }
 
 }
