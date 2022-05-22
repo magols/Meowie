@@ -9,4 +9,4 @@ Blazor WebAssembly demo: https://meowiewasm.azurewebsites.net/
 MAUI Blazor hybrid app.
 
 
-
+<img src="docs/Meowie.png" alt="Apps" width="800"/>
