@@ -50,7 +50,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Radzen.Blazor" Version="3.18.10" />
+	  <PackageReference Include="Radzen.Blazor" Version="3.18.11" />
 	</ItemGroup>
 
 	<ItemGroup>
