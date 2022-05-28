@@ -57,7 +57,7 @@
 
 	<ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
-    <PackageReference Include="Radzen.Blazor" Version="3.18.11" />
+    <PackageReference Include="Radzen.Blazor" Version="3.18.12" />
 	</ItemGroup>
 
 	<ItemGroup>

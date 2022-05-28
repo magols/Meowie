@@ -15,7 +15,7 @@
     <PackageReference Include="BrowserInterop" Version="1.1.2" />
     <PackageReference Include="Darnton.Blazor.DeviceInterop" Version="0.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.5" />
-    <PackageReference Include="Radzen.Blazor" Version="3.18.11" />
+    <PackageReference Include="Radzen.Blazor" Version="3.18.12" />
   </ItemGroup>
 
   <ItemGroup>
