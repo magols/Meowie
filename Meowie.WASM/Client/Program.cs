@@ -19,8 +19,8 @@ namespace Meowie.WASM.Client
 
             builder.Services.AddScoped<ILocationService, GeoService>();
             builder.Services.AddSingleton<StateContainerService>();
-
-            builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider("https://localhost:5001"));
+            
+            builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider(builder.Configuration["MEOWIE_API_URL"] ?? "https://localhost:5001"));
 
             builder.Services.AddScoped<CatFactsClient>(sp =>
                 new CatFactsClient(

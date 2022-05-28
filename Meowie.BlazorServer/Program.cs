@@ -18,7 +18,7 @@ namespace Meowie.BlazorServer
             builder.Services.AddScoped<ILocationService, GeoService>();
             builder.Services.AddSingleton<StateContainerService>();
 
-            builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider("http://localhost:5000"));
+            builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider(builder.Configuration["MEOWIE_API_URL"] ?? "https://localhost:5001"));
 
             builder.Services.AddHttpClient();
             builder.Services.AddScoped<CatFactsClient>(sp =>
