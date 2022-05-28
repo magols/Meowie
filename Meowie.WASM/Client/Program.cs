@@ -1,3 +1,4 @@
+using Meowie.Lib;
 using Meowie.Lib.Services;
 using Meowie.Lib.Web;
 using Microsoft.AspNetCore.Components.Web;
@@ -18,6 +19,8 @@ namespace Meowie.WASM.Client
 
             builder.Services.AddScoped<ILocationService, GeoService>();
             builder.Services.AddSingleton<StateContainerService>();
+
+            builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider("https://localhost:5001"));
 
             builder.Services.AddScoped<CatFactsClient>(sp =>
                 new CatFactsClient(

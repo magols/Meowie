@@ -31,6 +31,12 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(RunConfiguration)'=='Default'">
+	  <EnvironmentVariables>
+      <Variable name="ASPNETCORE_ENVIRONMENT" value="Development" />
+    </EnvironmentVariables>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
@@ -50,7 +56,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Radzen.Blazor" Version="3.18.11" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.5" />
+    <PackageReference Include="Radzen.Blazor" Version="3.18.11" />
 	</ItemGroup>
 
 	<ItemGroup>

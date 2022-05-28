@@ -13,9 +13,15 @@ namespace Meowie.Lib.Services
             _client = client;
         }
 
-        public async Task<CatFact> GetFactAsync()
+        public async Task<CatFacts> GetFactsAsync(int maxLength = 500, int limit = 25)
         {
-            var result = await _client.GetFromJsonAsync<CatFact>("/fact?max_length=500");
+            var result = await _client.GetFromJsonAsync<CatFacts>("/facts?max_length=" + maxLength + "&limit=" + limit);
+            return result;
+        }
+
+        public async Task<CatFact> GetFactAsync(int maxLength = 500)
+        {
+            var result = await _client.GetFromJsonAsync<CatFact>("/fact?max_length=" + maxLength);
             return result;
         }
 

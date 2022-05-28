@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{AF913C79-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{EB346212-B309-40E7-98A2-17E871D1925D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meowie.API", "Meowie.API\Meowie.API.csproj", "{30048540-8B04-4AE0-921E-7B6B5910F0D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{3F4FECB7-748A-4C23-BCC4-2BB0B9AEB179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F4FECB7-748A-4C23-BCC4-2BB0B9AEB179}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F4FECB7-748A-4C23-BCC4-2BB0B9AEB179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30048540-8B04-4AE0-921E-7B6B5910F0D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30048540-8B04-4AE0-921E-7B6B5910F0D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30048540-8B04-4AE0-921E-7B6B5910F0D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30048540-8B04-4AE0-921E-7B6B5910F0D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

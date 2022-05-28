@@ -1,3 +1,4 @@
+using Meowie.Lib;
 using Meowie.Lib.Services;
 using Meowie.Lib.Web;
 using Radzen;
@@ -17,6 +18,7 @@ namespace Meowie.BlazorServer
             builder.Services.AddScoped<ILocationService, GeoService>();
             builder.Services.AddSingleton<StateContainerService>();
 
+            builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider("http://localhost:5000"));
 
             builder.Services.AddHttpClient();
             builder.Services.AddScoped<CatFactsClient>(sp =>

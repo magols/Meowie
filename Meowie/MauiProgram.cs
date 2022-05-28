@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.WebView.Maui;
+﻿using Meowie.Lib;
 using Meowie.Lib.Services;
 using Meowie.Services;
 using Radzen;
@@ -9,7 +9,7 @@ public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
 	{
-		var builder = MauiApp.CreateBuilder();
+        var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
 			.ConfigureFonts(fonts =>
@@ -21,6 +21,9 @@ public static class MauiProgram
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
+
+
+        builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider("http://10.0.2.2:5000"));
 
 
         builder.Services.AddSingleton<ILocationService>(new LocationServiceApp());
