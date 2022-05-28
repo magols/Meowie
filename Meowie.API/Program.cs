@@ -22,7 +22,7 @@ builder.Services.AddSingleton<ChatHub>();
 
 builder.Services.AddHostedService<Chatter>();
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<CatFactsClient>(sp =>
+builder.Services.AddSingleton<CatFactsClient>(sp =>
     new CatFactsClient(
         new HttpClient
         {
