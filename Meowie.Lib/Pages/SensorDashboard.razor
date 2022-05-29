@@ -1,0 +1,54 @@
+﻿@page "/sensordashboard"
+@using Meowie.Lib.Data
+@using Microsoft.AspNetCore.SignalR.Client
+@implements IAsyncDisposable
+<h3>Sensor Dashboard (Connected: @hubConnection?.State)</h3>
+ 
+
+
+<h5>Accel</h5>
+Z @sensorData.AccelerometerZ<br/>
+Y @sensorData.AccelerometerY<br/>
+X @sensorData.AccelerometerX<br/>
+
+<h5>Orientation</h5>
+X @sensorData.OrientationX<br/>
+Y @sensorData.OrientationY<br/>
+Z @sensorData.OrientationZ<br/>
+W @sensorData.OrientationW<br/>
+
+<h5>Compass</h5>
+Compass @sensorData.CompassHeadingMagneticNorth<br/>
+@code {
+
+    [Inject]
+    public IBackendUrlProvider BackeEndUrlProvider { get; set; }
+
+    private SensorData sensorData = new();
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(BackeEndUrlProvider.GetBackEndUrl() + "/sensorhub")
+            .Build();
+
+        hubConnection.On<SensorData>("SensorData", data =>
+        {
+            sensorData = data;
+            StateHasChanged();
+        });
+
+
+        await hubConnection.StartAsync();
+
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection != null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

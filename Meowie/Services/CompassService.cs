@@ -2,7 +2,7 @@
 
 namespace Meowie.Services;
 
-class CompassService
+public class CompassService : IDisposable
 {
     private StateContainerService _state;
 
@@ -20,5 +20,14 @@ class CompassService
     private void OnReading(object sender, CompassChangedEventArgs e)
     {
         _state.SetCompass(e.Reading.HeadingMagneticNorth);
+    }
+
+    public void Dispose()
+    {
+        if (Compass.IsMonitoring)
+            Compass.Stop();
+
+        Compass.Default.ReadingChanged -= OnReading;
+
     }
 }

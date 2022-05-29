@@ -68,6 +68,8 @@ app.UseCors(builder =>
 
 
 app.MapHub<ChatHub>("/chathub");
+app.MapHub<SensorHub>("/sensorhub");
+
 app.UseResponseCompression();
 
 app.Run();

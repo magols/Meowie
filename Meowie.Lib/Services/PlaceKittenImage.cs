@@ -13,7 +13,6 @@ public static class PlaceKittenImage
         string url = 
          $"https://placekitten.com/{size}/{size}";
 
-        Console.WriteLine(url);
         return url;
     }
 }

@@ -32,8 +32,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<ILocationService>(new LocationServiceApp());
 
         builder.Services.AddSingleton<StateContainerService>();
-        builder.Services.AddSingleton<AccelService>();
-        builder.Services.AddSingleton<CompassService>();
+        builder.Services.AddScoped<AccelService>();
+        builder.Services.AddScoped<OrientationService>();
+        builder.Services.AddScoped<CompassService>();
 
         builder.Services.AddScoped<CatFactsClient>(sp =>
             new CatFactsClient(

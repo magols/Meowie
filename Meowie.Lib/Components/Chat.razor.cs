@@ -26,11 +26,8 @@ namespace Meowie.Lib.Components
 
         protected override async Task OnInitializedAsync()
         {
-            string host;
-
             hubConnection = new HubConnectionBuilder()
                 .WithUrl(BackeEndUrlProvider.GetBackEndUrl() + "/chathub")
-                .ConfigureLogging(builder => { })
                 .Build();
 
             hubConnection.Reconnecting += OnReconnecting;

@@ -1,0 +1,115 @@
+﻿@page "/sensors"
+@implements IDisposable
+
+@using Meowie.Lib.Services
+@using Meowie.Services
+@using System.Numerics
+@using Meowie.Lib
+@using Meowie.Lib.Data
+@using Microsoft.AspNetCore.SignalR.Client
+<h3>Sensors</h3>
+
+
+<h5>Accel monitoring: @Accelerometer.Default.IsMonitoring</h5>
+Z @stateService.Acceleration.Z<br/>
+Y @stateService.Acceleration.Y<br/>
+X @stateService.Acceleration.X<br/>
+
+<h5>Orientation monitoring: @OrientationSensor.Default.IsMonitoring</h5>
+X @stateService.Orientation.X<br/>
+Y @stateService.Orientation.Y<br/>
+Z @stateService.Orientation.Z<br/>
+W @stateService.Orientation.W<br/>
+
+<h5>Compass (@Compass.Default.IsMonitoring)</h5>
+Compass @stateService.CompassHeadingMagneticNorth<br/>
+
+@*<button @onclick="async () => await SendToHub()">Send</button>*@
+@code {
+
+    [Inject]
+    public StateContainerService stateService { get; set;}
+
+    [Inject]
+    public AccelService AccelService{ get; set;}
+
+    [Inject]
+    public OrientationService OrientationService { get; set; }
+    [Inject]
+    public CompassService CompassService { get; set; }
+
+    [Inject]
+    public IBackendUrlProvider BackeEndUrlProvider { get; set; }
+
+    private SensorData sensorData = new();
+    private HubConnection? hubConnection;
+
+    private Timer _timer;
+    private Task _executingTask;
+    private readonly CancellationTokenSource _stoppingCts = new CancellationTokenSource();
+    protected int Interval = 20;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        stateService.OnStateChange += UpdateSensorData;
+        stateService.OnStateChange += StateHasChanged;
+
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(BackeEndUrlProvider.GetBackEndUrl() + "/sensorhub")
+            .Build();
+
+        await hubConnection.StartAsync();
+
+        _timer = new Timer(ExecuteTask, null, 0, Interval);
+    }
+
+    private void UpdateSensorData()
+    {
+        sensorData.Accelerometer = stateService.Acceleration;
+        sensorData.AccelerometerX = stateService.Acceleration.X;
+        sensorData.AccelerometerY = stateService.Acceleration.Y;
+        sensorData.AccelerometerZ = stateService.Acceleration.Z;
+
+        sensorData.CompassHeadingMagneticNorth = stateService.CompassHeadingMagneticNorth;
+
+        sensorData.OrientationX = stateService.Orientation.X;
+        sensorData.OrientationY = stateService.Orientation.Y;
+        sensorData.OrientationZ = stateService.Orientation.Z;
+        sensorData.OrientationW = stateService.Orientation.W;
+
+    }
+
+    private async Task SendToHub(CancellationToken ct = default)
+    {
+        if (hubConnection != null && hubConnection.State == HubConnectionState.Connected)
+        {
+            await hubConnection.SendAsync("ReceiveSensorData", sensorData, ct);
+        }
+    }
+
+    public void Dispose()
+    {
+        stateService.OnStateChange -= UpdateSensorData;
+        stateService.OnStateChange -= StateHasChanged;
+ 
+        _stoppingCts.Cancel();
+        _timer?.Dispose();
+    
+        OrientationService.Dispose();
+        CompassService.Dispose();
+
+    }
+
+    private void ExecuteTask(object state)
+    {
+        _timer?.Change(Timeout.Infinite, 0);
+        _executingTask = ExecuteTaskAsync(_stoppingCts.Token);
+    }
+    private async Task ExecuteTaskAsync(CancellationToken stoppingToken)
+    {
+        await SendToHub(stoppingToken);
+        _timer.Change(Interval, Interval);
+    }
+}
