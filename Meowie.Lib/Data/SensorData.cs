@@ -6,16 +6,16 @@ namespace Meowie.Lib.Data
     {
         public Vector3 Accelerometer { get; set; }
 
-        public float AccelerometerX { get; set; }
-        public float AccelerometerY { get; set; }
-        public float AccelerometerZ { get; set; }
-        public double CompassHeadingMagneticNorth { get; set; }
+        public decimal AccelerometerX { get; set; }
+        public decimal AccelerometerY { get; set; }
+        public decimal AccelerometerZ { get; set; }
+        public decimal CompassHeadingMagneticNorth { get; set; }
 
 
-        public float OrientationX { get; set; }
-        public float OrientationY { get; set; }
-        public float OrientationZ { get; set; }
-        public float OrientationW { get; set; }
+        public decimal OrientationX { get; set; }
+        public decimal OrientationY { get; set; }
+        public decimal OrientationZ { get; set; }
+        public decimal OrientationW { get; set; }
 
 
         public override string ToString()

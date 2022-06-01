@@ -26,7 +26,7 @@ public static class MauiProgram
 #if DEBUG
         builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider("http://10.0.2.2:5000"));
 #else
-        builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider("https://meowieapi.azurewebsites.net");
+        builder.Services.AddSingleton<IBackendUrlProvider>(new BackendUrlProvider("https://meowieapi.azurewebsites.net"));
 #endif
 
         builder.Services.AddSingleton<ILocationService>(new LocationServiceApp());

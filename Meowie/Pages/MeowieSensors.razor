@@ -11,15 +11,15 @@
 
 
 <h5>Accel monitoring: @Accelerometer.Default.IsMonitoring</h5>
-Z @stateService.Acceleration.Z<br/>
-Y @stateService.Acceleration.Y<br/>
-X @stateService.Acceleration.X<br/>
+Z @stateService.Acceleration.Z.ToString("0.0000")<br/>
+Y @stateService.Acceleration.Y.ToString("0.0000")<br/>
+X @stateService.Acceleration.X.ToString("0.0000")<br/>
 
 <h5>Orientation monitoring: @OrientationSensor.Default.IsMonitoring</h5>
-X @stateService.Orientation.X<br/>
-Y @stateService.Orientation.Y<br/>
-Z @stateService.Orientation.Z<br/>
-W @stateService.Orientation.W<br/>
+X @stateService.Orientation.X.ToString("0.0000")<br/>
+Y @stateService.Orientation.Y.ToString("0.0000")<br/>
+Z @stateService.Orientation.Z.ToString("0.0000")<br/>
+W @stateService.Orientation.W.ToString("0.0000")<br/>
 
 <h5>Compass (@Compass.Default.IsMonitoring)</h5>
 Compass @stateService.CompassHeadingMagneticNorth<br/>
@@ -47,7 +47,7 @@ Compass @stateService.CompassHeadingMagneticNorth<br/>
     private Timer _timer;
     private Task _executingTask;
     private readonly CancellationTokenSource _stoppingCts = new CancellationTokenSource();
-    protected int Interval = 20;
+    protected int Interval = 10;
 
 
     protected override async Task OnInitializedAsync()
@@ -68,16 +68,17 @@ Compass @stateService.CompassHeadingMagneticNorth<br/>
     private void UpdateSensorData()
     {
         sensorData.Accelerometer = stateService.Acceleration;
-        sensorData.AccelerometerX = stateService.Acceleration.X;
-        sensorData.AccelerometerY = stateService.Acceleration.Y;
-        sensorData.AccelerometerZ = stateService.Acceleration.Z;
+        sensorData.AccelerometerX = (decimal)stateService.Acceleration.X;
+        sensorData.AccelerometerY = (decimal)stateService.Acceleration.Y;
+        sensorData.AccelerometerZ = (decimal)stateService.Acceleration.Z;
 
-        sensorData.CompassHeadingMagneticNorth = stateService.CompassHeadingMagneticNorth;
 
-        sensorData.OrientationX = stateService.Orientation.X;
-        sensorData.OrientationY = stateService.Orientation.Y;
-        sensorData.OrientationZ = stateService.Orientation.Z;
-        sensorData.OrientationW = stateService.Orientation.W;
+        sensorData.CompassHeadingMagneticNorth = (decimal)stateService.CompassHeadingMagneticNorth;
+
+        sensorData.OrientationX = (decimal)stateService.Orientation.X;
+        sensorData.OrientationY = (decimal)stateService.Orientation.Y;
+        sensorData.OrientationZ = (decimal)stateService.Orientation.Z;
+        sensorData.OrientationW = (decimal)stateService.Orientation.W;
 
     }
 
@@ -97,6 +98,7 @@ Compass @stateService.CompassHeadingMagneticNorth<br/>
         _stoppingCts.Cancel();
         _timer?.Dispose();
     
+        AccelService.Dispose();
         OrientationService.Dispose();
         CompassService.Dispose();
 

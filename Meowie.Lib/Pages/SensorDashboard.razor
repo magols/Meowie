@@ -7,18 +7,18 @@
 
 
 <h5>Accel</h5>
-Z @sensorData.AccelerometerZ<br/>
-Y @sensorData.AccelerometerY<br/>
-X @sensorData.AccelerometerX<br/>
+Z @sensorData.AccelerometerZ.ToString("0.0000")<br/>
+Y @sensorData.AccelerometerY.ToString("0.0000")<br/>
+X @sensorData.AccelerometerX.ToString("0.0000")<br/>
 
 <h5>Orientation</h5>
-X @sensorData.OrientationX<br/>
-Y @sensorData.OrientationY<br/>
-Z @sensorData.OrientationZ<br/>
-W @sensorData.OrientationW<br/>
+X @sensorData.OrientationX.ToString("0.0000")<br/>
+Y @sensorData.OrientationY.ToString("0.0000")<br/>
+Z @sensorData.OrientationZ.ToString("0.0000")<br/>
+W @sensorData.OrientationW.ToString("0.0000")<br/>
 
 <h5>Compass</h5>
-Compass @sensorData.CompassHeadingMagneticNorth<br/>
+Compass @sensorData.CompassHeadingMagneticNorth.ToString("0.0000")<br/>
 @code {
 
     [Inject]
