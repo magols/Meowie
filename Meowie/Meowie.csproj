@@ -39,28 +39,33 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
+		 <!--<MauiIcon Include="Resources\meowie_logo-64x64.png" />-->
 
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
+	 
+    <!-- Splash Screen --> 
+		<MauiSplashScreen Include="Resources\meowie_logo.png" Color="#000000" BaseSize="500,500" /> 
+
+
+    <!--<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />-->
+    <MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\meowie_logo.png" Color="#000000" />
+
+
+    <!-- Splash Screen -->
+    <!--<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />-->
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
-
-		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+    <MauiFont Include="Resources\Fonts\*" />
+    
+    <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="Pages\MeowieSensors.razor.css" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include="Pages\MeowieSensors.razor.css" />
 	</ItemGroup>
 
 	<ItemGroup>
