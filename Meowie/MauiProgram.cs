@@ -1,6 +1,7 @@
 ﻿using Meowie.Lib;
 using Meowie.Lib.Services;
 using Meowie.Services;
+using Microsoft.Extensions.Configuration;
 using Radzen;
 
 namespace Meowie;
@@ -21,6 +22,13 @@ public static class MauiProgram
 #if DEBUG
 		builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
+
+
+#if DEBUG 
+        builder.Configuration.AddJsonFile("appsettings.magnus.json", false);
+#endif
+
+
 
 
 #if DEBUG
@@ -45,6 +53,7 @@ public static class MauiProgram
         builder.Services.AddScoped<DialogService>();
         builder.Services.AddScoped<NotificationService>();
 
+       
         return builder.Build();
 	}
 }
