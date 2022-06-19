@@ -1,0 +1,214 @@
+﻿@page "/recorder"
+@using Microsoft.CognitiveServices.Speech
+@using Microsoft.CognitiveServices.Speech.Audio
+@using System.Diagnostics
+@implements IAsyncDisposable
+@inject IConfiguration Configuration
+<h3>Recorder</h3>
+
+<div class="row">
+    <div class="col-6">
+        <RadzenButton @ref="btnRecord" Disabled="recording" Click="async () => await Record()">Record</RadzenButton>
+        <RadzenButton @ref="btnStop" Disabled="!recording" Click="async () => await Stop()">Stop</RadzenButton>
+    </div>
+    <div class="col-2">
+        <RadzenDropDown Data="languages" TValue="string" @bind-Value="selectedLanguage"></RadzenDropDown>
+    </div>
+</div>
+
+
+
+<br />
+<span class="oi oi-media-record" style="color: @(recording ? "red" : "black")"></span>
+
+
+<RadzenLabel Text="@textInProgress"></RadzenLabel>
+
+<RadzenDataGrid @ref="grid" AllowFiltering="true" AllowColumnResize="true"  AllowSorting="false"
+                PageSize="5" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                Data="@texts" TItem="string" RowSelect="OnRowSelected" >
+    <Columns>
+        <RadzenDataGridColumn TItem="string" Property="t" Filterable="false" Title="" />
+    </Columns>
+</RadzenDataGrid>
+ 
+ 
+
+@code {
+
+    public string SelectedResult { get; set; }
+
+
+    string[] languages = new[] { "sv-SE", "en-US" };
+    string selectedLanguage = "sv-SE";  
+    RadzenDataGrid<string>? grid;
+    RadzenButton? btnRecord;
+    RadzenButton? btnStop;
+
+    string text { get; set; } = "";
+    List<string> texts = new List<string>();
+    string? textInProgress;
+    Stopwatch watch = new Stopwatch();
+    static string YourSubscriptionKey = " ";
+    static string YourServiceRegion = " ";
+
+    bool recording = false;
+    SpeechConfig? _speechConfig;
+    AudioConfig? _audioConfig;
+    SpeechRecognizer? _recognizer;
+
+    TaskCompletionSource<int> stopRecognition = new TaskCompletionSource<int>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        YourServiceRegion = Configuration["SpeechRegion"];
+        YourSubscriptionKey = Configuration["SpeechSubscriptionKey"];
+    }
+
+    private void bindEvents()
+    {
+        _recognizer.Recognizing += (s, e) =>
+        {
+            textInProgress = e.Result.Text;
+            Console.WriteLine($"RECOGNIZING: Text={e.Result.Text}");
+
+            InvokeAsync(StateHasChanged);
+
+        };
+
+        _recognizer.Recognized += (s, e) =>
+        {
+            if (e.Result.Reason == ResultReason.RecognizedSpeech)
+            {
+                Console.WriteLine($"RECOGNIZED: Text={e.Result.Text}");
+
+                if (e.Result.Text != "")
+                {
+                    text = e.Result.Text;
+                    texts.Insert(0, e.Result.Text);
+                    grid?.Reset();
+                    InvokeAsync(StateHasChanged);
+                }
+
+            }
+            else if (e.Result.Reason == ResultReason.NoMatch)
+            {
+                Console.WriteLine($"NOMATCH: Speech could not be recognized.");
+            }
+        };
+
+        _recognizer.Canceled += (s, e) =>
+        {
+            Console.WriteLine($"CANCELED: Reason={e.Reason}");
+
+            if (e.Reason == CancellationReason.Error)
+            {
+                Console.WriteLine($"CANCELED: ErrorCode={e.ErrorCode}");
+                Console.WriteLine($"CANCELED: ErrorDetails={e.ErrorDetails}");
+                Console.WriteLine($"CANCELED: Did you set the speech resource key and region values?");
+            }
+
+            stopRecognition.TrySetResult(0);
+        };
+
+        _recognizer.SessionStopped += (s, e) =>
+        {
+            Console.WriteLine("\n    Session stopped event.");
+            stopRecognition.TrySetResult(0);
+        };
+
+        _recognizer.SessionStarted += (s, e) =>
+        {
+            Console.WriteLine("\n    Session Started event.");
+
+        };
+    }
+
+
+    public async Task Stop()
+    {
+        
+//        await _recognizer.StopKeywordRecognitionAsync();
+        await _recognizer.StopContinuousRecognitionAsync();
+        watch.Stop();
+        recording = false;
+        //textInProgress = "";
+    }
+
+    
+    public async Task Record()
+    {
+        try
+        {
+            _speechConfig = SpeechConfig.FromSubscription(YourSubscriptionKey, YourServiceRegion);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        if (_speechConfig == null) return;
+
+
+        
+        
+        _speechConfig.SpeechRecognitionLanguage = selectedLanguage;
+
+        _audioConfig = AudioConfig.FromDefaultMicrophoneInput();
+        _recognizer = new SpeechRecognizer(_speechConfig, _audioConfig);
+
+        bindEvents();
+        Console.WriteLine("Speak into your microphone.");
+    
+        text = "";
+        watch.Restart();
+        recording = true;
+
+        await _recognizer.StartContinuousRecognitionAsync();
+
+    }
+
+ 
+
+
+    private void OnRowSelected(string selected)
+    {
+        SelectedResult = selected;
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        _audioConfig?.Dispose();
+        if (_recognizer != null)
+        {
+            await _recognizer.StopContinuousRecognitionAsync();
+            _recognizer?.Dispose();
+        }
+        Console.WriteLine("Disposed");
+    }
+
+    static void OutputSpeechRecognitionResult(RecognitionResult speechRecognitionResult)
+    {
+        switch (speechRecognitionResult.Reason)
+        {
+            case ResultReason.RecognizedSpeech:
+                Console.WriteLine($"RECOGNIZED: Text={speechRecognitionResult.Text}");
+                break;
+            case ResultReason.NoMatch:
+                Console.WriteLine($"NOMATCH: Speech could not be recognized.");
+                break;
+            case ResultReason.Canceled:
+                var cancellation = CancellationDetails.FromResult(speechRecognitionResult);
+                Console.WriteLine($"CANCELED: Reason={cancellation.Reason}");
+
+                if (cancellation.Reason == CancellationReason.Error)
+                {
+                    Console.WriteLine($"CANCELED: ErrorCode={cancellation.ErrorCode}");
+                    Console.WriteLine($"CANCELED: ErrorDetails={cancellation.ErrorDetails}");
+                    Console.WriteLine($"CANCELED: Did you set the speech resource key and region values?");
+                }
+                break;
+        }
+    }
+}
